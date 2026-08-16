@@ -150,6 +150,9 @@ UPROGS=\
 	$U/_clear\
 	$U/_head\
 	$U/_tail\
+	$U/_cmd\
+	$U/_cp\
+
 
 
 
