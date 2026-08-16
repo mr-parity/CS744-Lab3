@@ -152,7 +152,7 @@ UPROGS=\
 	$U/_tail\
 	$U/_cmd\
 	$U/_cp\
-
+	$U/_mgrep\
 
 
 
