@@ -149,6 +149,8 @@ UPROGS=\
 	$U/_hello\
 	$U/_clear\
 	$U/_head\
+	$U/_tail\
+
 
 
 fs.img: mkfs/mkfs README $(UPROGS)
