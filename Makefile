@@ -154,6 +154,7 @@ UPROGS=\
 	$U/_cp\
 	$U/_mgrep\
 	$U/_ppid\
+	$U/_sq\
 
 
 fs.img: mkfs/mkfs README.md $(UPROGS)

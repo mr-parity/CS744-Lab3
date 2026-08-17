@@ -115,3 +115,14 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+uint64 sys_square(void)
+{
+    int num;
+    argint(0,&num);
+
+    uint64 numCast = (uint64)num;
+
+    return numCast * numCast;
+}
+
