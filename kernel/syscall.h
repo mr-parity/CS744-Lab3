@@ -23,4 +23,7 @@
 #define SYS_sync   22
 #define SYS_getppid 23
 #define SYS_square 24
+#define SYS_getChildCount 25
+#define SYS_getProcessChildCount 26
+
 

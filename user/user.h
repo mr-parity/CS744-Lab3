@@ -27,6 +27,8 @@ int pause(int);
 int uptime(void);
 int sync(void);
 int square(int);
+int getChildCount(void);
+int getProcessChildCount(int);
 
 // ulib.c
 int stat(const char *, struct stat *);

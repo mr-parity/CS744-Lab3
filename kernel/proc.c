@@ -124,6 +124,7 @@ allocproc(void)
 found:
   p->pid = allocpid();
   p->state = USED;
+  p->child_count = 0; // initialize childs to 0
 
   // Allocate a trapframe page.
   if ((p->trapframe = (struct trapframe *)kalloc()) == 0) {
@@ -295,6 +296,10 @@ kfork(void)
 
   acquire(&wait_lock);
   np->parent = p;
+
+  // increment process child count
+  p->child_count++;
+
   release(&wait_lock);
 
   acquire(&np->lock);
@@ -395,6 +400,8 @@ kwait(uint64 addr)
             return -1;
           }
           pp->parent = 0;
+          p->child_count--; // decrement child count of that process
+                            //
           freeproc(pp);
           release(&pp->lock);
           release(&wait_lock);

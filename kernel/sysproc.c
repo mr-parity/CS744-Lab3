@@ -7,6 +7,10 @@
 #include "proc.h"
 #include "vm.h"
 
+// get the process table and waitlock
+extern struct proc proc[NPROC];
+extern struct spinlock wait_lock;
+
 uint64
 sys_exit(void)
 {
@@ -126,3 +130,29 @@ uint64 sys_square(void)
     return numCast * numCast;
 }
 
+uint64 sys_getChildCount(void)
+{
+    return myproc()->child_count;
+}
+
+uint64 sys_getProcessChildCount(void)
+{
+    int pid;
+    struct proc* p;
+
+    argint(0,&pid);
+
+    acquire(&wait_lock);
+
+    for(p=proc; p<&proc[NPROC]; p++)
+    {
+        if(p->state!=UNUSED && p->pid==pid)
+        {
+            int count= p->child_count;
+            release(&wait_lock);
+            return count;
+        }
+    }
+
+    return -1;
+}
