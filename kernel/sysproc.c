@@ -37,6 +37,55 @@ sys_fork(void)
   return kfork();
 }
 
+uint64 sys_nfork(void)
+{
+    int num_child;
+    uint64 childPidAddress;
+
+    // take args from user programs n process count and ptr to array int*
+    argint(0,&num_child);
+    argaddr(1,&childPidAddress);
+
+    // if num_child 0 or -ve early return
+    if(num_child<=0)
+    {
+        return 0;
+    }
+
+
+    // create n childs
+    for(int i=0; i<num_child; i++)
+    {
+       int childPid =  kfork();
+
+       if(childPid<0)
+       {
+           return -1;
+       }
+       else if (childPid==0)
+       {
+           // child code
+           return 0;
+       }
+       else
+       {
+           //parent code
+           uint64 dst = childPidAddress + (i * sizeof(int));
+
+           if (copyout(myproc()->pagetable,myproc()->sz, dst, (char*)&childPid, sizeof(int)) < 0) {
+                return -1;
+           }
+           //localCopyOfPid[i]=childPid;
+           
+       }
+    }
+
+   
+
+
+    return num_child;
+}
+
 uint64
 sys_wait(void)
 {

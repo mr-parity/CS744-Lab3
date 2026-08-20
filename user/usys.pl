@@ -47,3 +47,5 @@ entry("getppid");
 entry("square");
 entry("getChildCount");
 entry("getProcessChildCount");
+entry("nfork");
+

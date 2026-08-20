@@ -25,5 +25,7 @@
 #define SYS_square 24
 #define SYS_getChildCount 25
 #define SYS_getProcessChildCount 26
+#define SYS_nfork 27
+
 
 

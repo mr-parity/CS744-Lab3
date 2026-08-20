@@ -29,6 +29,7 @@ int sync(void);
 int square(int);
 int getChildCount(void);
 int getProcessChildCount(int);
+int nfork(int,int*);
 
 // ulib.c
 int stat(const char *, struct stat *);

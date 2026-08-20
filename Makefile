@@ -156,6 +156,7 @@ UPROGS=\
 	$U/_ppid\
 	$U/_sq\
 	$U/_test_children\
+	$U/_test_nfork\
 
 
 
