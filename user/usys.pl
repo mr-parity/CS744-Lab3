@@ -48,4 +48,6 @@ entry("square");
 entry("getChildCount");
 entry("getProcessChildCount");
 entry("nfork");
+entry("printSysCalls");
+entry("printProcessSysCalls");
 

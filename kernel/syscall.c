@@ -108,6 +108,9 @@ extern uint64 sys_square(void);
 extern uint64 sys_getChildCount(void);
 extern uint64 sys_getProcessChildCount(void);
 extern uint64 sys_nfork(void);
+extern uint64 sys_printSysCalls(void);
+extern uint64 sys_printProcessSysCalls(void);
+
 
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
@@ -140,6 +143,8 @@ static uint64 (*syscalls[])(void) = {
   [SYS_getChildCount] sys_getChildCount,
   [SYS_getProcessChildCount] sys_getProcessChildCount,
   [SYS_nfork] sys_nfork,
+  [SYS_printSysCalls] sys_printSysCalls,
+  [SYS_printProcessSysCalls] sys_printProcessSysCalls,
 
   // clang-format on
 };
@@ -152,6 +157,9 @@ syscall(void)
 
   num = p->trapframe->a7;
   if (num > 0 && num < NELEM(syscalls) && syscalls[num]) {
+
+    // update the counter values in PCB
+    p->sysCounter[num]++;
     // Use num to lookup the system call function for num, call it,
     // and store its return value in p->trapframe->a0
     p->trapframe->a0 = syscalls[num]();

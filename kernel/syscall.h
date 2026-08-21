@@ -26,6 +26,8 @@
 #define SYS_getChildCount 25
 #define SYS_getProcessChildCount 26
 #define SYS_nfork 27
+#define SYS_printSysCalls 28
+#define SYS_printProcessSysCalls 29
 
 
 

@@ -205,3 +205,50 @@ uint64 sys_getProcessChildCount(void)
 
     return -1;
 }
+
+uint64 sys_printSysCalls(void)
+{
+    uint64* counterArray = myproc()->sysCounter;
+
+    printk("System Call counts for current process:\n");
+    for(int i=0;i<30;i++)
+    {
+        if(counterArray[i]!=0)
+        {
+             printk("%d \t %ld\n",i,counterArray[i]);
+        }
+    }
+
+    return 0;
+}
+
+uint64 sys_printProcessSysCalls(void)
+{
+    int pid;
+    argint(0,&pid);
+    struct proc *p;
+
+    // find the pid in process table
+    acquire(&wait_lock);
+
+    for(p=proc; p<&proc[NPROC]; p++)
+    {
+        if(p->state!=UNUSED && p->pid==pid)
+        {
+            uint64* counterArray = p->sysCounter;
+            printk("System Call counts for process: %d\n",pid);
+
+            for(int i=0;i<30;i++)
+            {
+                    if(counterArray[i]!=0)
+                    {  
+                         printk("%d \t %ld\n",i,counterArray[i]);
+                    }
+            }
+            release(&wait_lock);
+            break;
+        }
+    }
+
+    return 0;
+}

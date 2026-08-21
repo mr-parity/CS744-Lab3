@@ -30,6 +30,8 @@ int square(int);
 int getChildCount(void);
 int getProcessChildCount(int);
 int nfork(int,int*);
+int printSysCalls(void);
+int printProcessSysCalls(int);
 
 // ulib.c
 int stat(const char *, struct stat *);
