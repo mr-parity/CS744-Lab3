@@ -6,6 +6,9 @@
 #include "spinlock.h"
 #include "proc.h"
 #include "vm.h"
+#include "sleeplock.h"
+#include "fs.h"
+#include "file.h"
 
 // get the process table and waitlock
 extern struct proc proc[NPROC];
@@ -211,7 +214,7 @@ uint64 sys_printSysCalls(void)
     uint64* counterArray = myproc()->sysCounter;
 
     printk("System Call counts for current process:\n");
-    for(int i=0;i<30;i++)
+    for(int i=0;i<32;i++)
     {
         if(counterArray[i]!=0)
         {
@@ -238,7 +241,7 @@ uint64 sys_printProcessSysCalls(void)
             uint64* counterArray = p->sysCounter;
             printk("System Call counts for process: %d\n",pid);
 
-            for(int i=0;i<30;i++)
+            for(int i=0;i<32;i++)
             {
                     if(counterArray[i]!=0)
                     {  
@@ -252,3 +255,68 @@ uint64 sys_printProcessSysCalls(void)
 
     return 0;
 }
+
+uint64 sys_getInodeNum(void)
+{
+  int fd;
+  argint(0,&fd);
+
+  struct proc* p = myproc();
+
+  // is fd in valid bounds
+  if(fd<0||fd>=NOFILE)
+  {
+    return -1;
+  }
+
+  // check if ofile[fd] points to valid struct file
+  struct file* f = p->ofile[fd];
+
+  if(f==0)
+  {
+    return -1; // invalid fd
+  }
+
+  // is valid type of INODE
+  if(f->type!= FD_INODE)
+  {
+    return -1;
+  }
+
+  int inodeNum = f->ip->inum;
+
+  return inodeNum;
+}
+
+uint64 sys_getReadOffset(void)
+{
+  int fd;
+  argint(0,&fd);
+
+  struct proc* p =myproc();
+
+  // is fd in valid bounds
+  if(fd<0||fd>=NOFILE)
+  {
+    return -1;
+  }
+
+  // check if ofile[fd] points to valid struct file
+  struct file* f = p->ofile[fd];
+
+  if(f==0)
+  {
+    return -1; // invalid fd
+  }
+
+  // is valid type of INODE
+  if(f->type!= FD_INODE)
+  {
+    return -1;
+  }
+
+  int offset = f->off;
+
+  return offset;
+}
+

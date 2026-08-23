@@ -28,6 +28,5 @@
 #define SYS_nfork 27
 #define SYS_printSysCalls 28
 #define SYS_printProcessSysCalls 29
-
-
-
+#define SYS_getInodeNum 30
+#define SYS_getReadOffset 31

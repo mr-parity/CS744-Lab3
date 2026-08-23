@@ -158,6 +158,7 @@ UPROGS=\
 	$U/_test_children\
 	$U/_test_nfork\
 	$U/_test_syscalls\
+	$U/_test_fd\
 
 
 

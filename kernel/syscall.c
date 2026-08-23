@@ -110,7 +110,8 @@ extern uint64 sys_getProcessChildCount(void);
 extern uint64 sys_nfork(void);
 extern uint64 sys_printSysCalls(void);
 extern uint64 sys_printProcessSysCalls(void);
-
+extern uint64 sys_getInodeNum(void);
+extern uint64 sys_getReadOffset(void);
 
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
@@ -145,8 +146,9 @@ static uint64 (*syscalls[])(void) = {
   [SYS_nfork] sys_nfork,
   [SYS_printSysCalls] sys_printSysCalls,
   [SYS_printProcessSysCalls] sys_printProcessSysCalls,
-
-  // clang-format on
+  [SYS_getInodeNum] sys_getInodeNum,
+  [SYS_getReadOffset] sys_getReadOffset,
+   // clang-format on
 };
 
 void

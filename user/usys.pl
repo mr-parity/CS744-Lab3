@@ -50,4 +50,5 @@ entry("getProcessChildCount");
 entry("nfork");
 entry("printSysCalls");
 entry("printProcessSysCalls");
-
+entry("getInodeNum");
+entry("getReadOffset");
