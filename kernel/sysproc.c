@@ -214,7 +214,7 @@ uint64 sys_printSysCalls(void)
     uint64* counterArray = myproc()->sysCounter;
 
     printk("System Call counts for current process:\n");
-    for(int i=0;i<32;i++)
+    for(int i=0;i<33;i++)
     {
         if(counterArray[i]!=0)
         {
@@ -241,7 +241,7 @@ uint64 sys_printProcessSysCalls(void)
             uint64* counterArray = p->sysCounter;
             printk("System Call counts for process: %d\n",pid);
 
-            for(int i=0;i<32;i++)
+            for(int i=0;i<33;i++)
             {
                     if(counterArray[i]!=0)
                     {  

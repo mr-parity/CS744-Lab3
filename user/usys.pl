@@ -52,3 +52,4 @@ entry("printSysCalls");
 entry("printProcessSysCalls");
 entry("getInodeNum");
 entry("getReadOffset");
+entry("peek2");

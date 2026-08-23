@@ -112,6 +112,7 @@ extern uint64 sys_printSysCalls(void);
 extern uint64 sys_printProcessSysCalls(void);
 extern uint64 sys_getInodeNum(void);
 extern uint64 sys_getReadOffset(void);
+extern uint64 sys_peek2(void);
 
 // An array mapping syscall numbers from syscall.h
 // to the function that handles the system call.
@@ -148,7 +149,8 @@ static uint64 (*syscalls[])(void) = {
   [SYS_printProcessSysCalls] sys_printProcessSysCalls,
   [SYS_getInodeNum] sys_getInodeNum,
   [SYS_getReadOffset] sys_getReadOffset,
-   // clang-format on
+  [SYS_peek2] sys_peek2,
+  // clang-format on
 };
 
 void

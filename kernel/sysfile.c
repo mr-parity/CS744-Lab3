@@ -79,6 +79,74 @@ sys_read(void)
   return fileread(f, p, n);
 }
 
+uint64 sys_peek2(void)
+{
+  // args
+  int fd;
+  uint64 userAddress;
+  int bytesToRead;
+
+  struct file* f;
+  struct proc* p = myproc();
+
+  argint(0, &fd);
+  argaddr(1, &userAddress);
+  argint(2,&bytesToRead);
+
+  // check fd bounds
+  if(fd<0 || fd>=NOFILE)
+  {
+    return -1;
+  }
+
+  f = p->ofile[fd];
+
+  // check if file is valid pointer to struct file
+  if(f==0)
+  {
+    return -1;
+  }
+
+  // check file readability and type of INODE
+  if(f->readable==0 || f->type!=FD_INODE)
+  {
+    return -2;
+  }
+
+  // check the file read bytes
+  if(bytesToRead<=0)
+  {
+    return 0;
+  }
+
+  // variable to store how many bytes read
+  int r=0;
+
+  // lock file as in file.c
+  ilock(f->ip);
+
+  // check if offset is already past or on EOF
+  if(f->off>=f->ip->size)
+  {
+    iunlock(f->ip);
+    return -2;
+  }
+
+  // do actual read (def in fs.c)
+  r = readi(f->ip, 1, userAddress,f->off,bytesToRead);
+
+  // release lock and return values
+  iunlock(f->ip);
+
+  if(r==0)
+  {
+    return -2;
+  }
+  
+  return r;
+
+}
+
 uint64
 sys_write(void)
 {
