@@ -214,7 +214,7 @@ uint64 sys_printSysCalls(void)
     uint64* counterArray = myproc()->sysCounter;
 
     printk("System Call counts for current process:\n");
-    for(int i=0;i<35;i++)
+    for(int i=0;i<36;i++)
     {
         if(counterArray[i]!=0)
         {
@@ -241,7 +241,7 @@ uint64 sys_printProcessSysCalls(void)
             uint64* counterArray = p->sysCounter;
             printk("System Call counts for process: %d\n",pid);
 
-            for(int i=0;i<35;i++)
+            for(int i=0;i<36;i++)
             {
                     if(counterArray[i]!=0)
                     {  
@@ -348,4 +348,14 @@ uint64 sys_getPTEFlags(void)
   printk("VA: %p -> R:%d W:%d X:%d U:%d\n",(void*)virtualAddress,readable,writable,executable,userAccessible);
 
   return 0;
+}
+
+uint64 sys_va2pa(void)
+{
+  uint64 virtualAddress;
+  argaddr(0,&virtualAddress);
+
+  struct proc* proc=myproc();
+  return walkaddr(proc->pagetable, virtualAddress);
+    
 }

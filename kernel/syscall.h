@@ -33,3 +33,4 @@
 #define SYS_peek2 32
 #define SYS_pteValid 33
 #define SYS_getPTEFlags 34
+#define SYS_va2pa 35

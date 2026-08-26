@@ -55,3 +55,5 @@ entry("getReadOffset");
 entry("peek2");
 entry("pteValid");
 entry("getPTEFlags");
+entry("va2pa");
+
