@@ -214,7 +214,7 @@ uint64 sys_printSysCalls(void)
     uint64* counterArray = myproc()->sysCounter;
 
     printk("System Call counts for current process:\n");
-    for(int i=0;i<34;i++)
+    for(int i=0;i<35;i++)
     {
         if(counterArray[i]!=0)
         {
@@ -241,7 +241,7 @@ uint64 sys_printProcessSysCalls(void)
             uint64* counterArray = p->sysCounter;
             printk("System Call counts for process: %d\n",pid);
 
-            for(int i=0;i<34;i++)
+            for(int i=0;i<35;i++)
             {
                     if(counterArray[i]!=0)
                     {  
@@ -330,4 +330,22 @@ uint64 sys_pteValid(void)
   pagetable_t procpt = p->pagetable;
 
   return ismapped(procpt, virtualAddress);
+}
+
+uint64 sys_getPTEFlags(void)
+{
+  uint64 virtualAddress;
+  argaddr(0,&virtualAddress);
+  struct proc* p = myproc();
+
+  pte_t* pte = getPTE(p->pagetable,virtualAddress);
+
+  int readable = !!(*pte & PTE_R);
+  int writable = !!(*pte & PTE_W);
+  int executable = !!(*pte & PTE_X);
+  int userAccessible = !!(*pte&PTE_U);
+
+  printk("VA: %p -> R:%d W:%d X:%d U:%d\n",(void*)virtualAddress,readable,writable,executable,userAccessible);
+
+  return 0;
 }

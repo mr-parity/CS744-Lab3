@@ -161,6 +161,7 @@ UPROGS=\
 	$U/_test_fd\
 	$U/_test_peek\
 	$U/_pte\
+	$U/_pflag\
 
 
 fs.img: mkfs/mkfs README.md $(UPROGS)

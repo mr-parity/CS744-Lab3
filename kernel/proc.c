@@ -703,3 +703,10 @@ procdump(void)
     printk("\n");
   }
 }
+
+// returns the PTE flags
+pte_t* getPTE(pagetable_t pagetable, uint64 va)
+{
+  pte_t* pte = walk(pagetable,va,0);
+  return pte;
+}
