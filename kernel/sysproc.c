@@ -214,7 +214,7 @@ uint64 sys_printSysCalls(void)
     uint64* counterArray = myproc()->sysCounter;
 
     printk("System Call counts for current process:\n");
-    for(int i=0;i<36;i++)
+    for(int i=0;i<37;i++)
     {
         if(counterArray[i]!=0)
         {
@@ -241,7 +241,7 @@ uint64 sys_printProcessSysCalls(void)
             uint64* counterArray = p->sysCounter;
             printk("System Call counts for process: %d\n",pid);
 
-            for(int i=0;i<36;i++)
+            for(int i=0;i<37;i++)
             {
                     if(counterArray[i]!=0)
                     {  
@@ -359,3 +359,26 @@ uint64 sys_va2pa(void)
   return walkaddr(proc->pagetable, virtualAddress);
     
 }
+
+uint64 sys_getvasize(void)
+{
+    int pid;
+    argint(0, &pid);
+
+    struct proc *p;
+    int size = -1;
+
+    acquire(&wait_lock);
+
+    for (p = proc; p < &proc[NPROC]; p++) {
+        if (p->state != UNUSED && p->pid == pid) {
+            size = p->sz;
+            break;
+        }
+    }
+
+    release(&wait_lock);
+
+    return size;
+}
+

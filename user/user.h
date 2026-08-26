@@ -38,6 +38,7 @@ int peek2(int,char*,int);
 int pteValid(uint64);
 int getPTEFlags(uint64);
 uint64 va2pa(uint64);
+int getvasize(int);
 
 // ulib.c
 int stat(const char *, struct stat *);
