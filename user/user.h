@@ -35,6 +35,7 @@ int printProcessSysCalls(int);
 int getInodeNum(int);
 int getReadOffset(int);
 int peek2(int,char*,int);
+int pteValid(uint64);
 
 // ulib.c
 int stat(const char *, struct stat *);

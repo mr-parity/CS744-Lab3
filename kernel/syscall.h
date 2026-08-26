@@ -31,3 +31,4 @@
 #define SYS_getInodeNum 30
 #define SYS_getReadOffset 31
 #define SYS_peek2 32
+#define SYS_pteValid 33
